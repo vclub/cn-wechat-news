@@ -48,15 +48,13 @@
 }
 
 .avatar {
-  width: 100rpx;
-  height: 100rpx;
   position: relative;
   padding-right: 30rpx;
 }
 
 .avatar .img {
-  width: 100%;
-  height: 100%;
+  width: 150rpx;
+  height: 100rpx;
 }
 
 .avatar .doyen {

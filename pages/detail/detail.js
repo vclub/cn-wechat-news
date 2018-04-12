@@ -5,9 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    newsId:1523074607642,
+    newsId: 1523074607642,
     nodes: '',
-    newsInfo:{}
+    newsInfo: {}
   },
 
   /**
@@ -15,11 +15,11 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      newsId:options.newsId
+      newsId: options.newsId
     })
     this.onLoadDetailNews()
   },
-  onLoadDetailNews() {
+  onLoadDetailNews(callback) {
     wx.request({
       url: 'https://test-miniprogram.com/api/news/detail',
       data: {
@@ -31,6 +31,9 @@ Page({
           newsInfo: res.data.result
         })
         this.buildContent(res.data.result.content)
+      },
+      complete: () => {
+        callback && callback()
       }
     })
   },
@@ -42,9 +45,9 @@ Page({
       if (content[i].type === 'image') {
         contentList.push({
           name: 'img',
-          attrs:{
-            src:content[i].src,
-            style:'width:100%'
+          attrs: {
+            src: content[i].src,
+            style: 'width:100%'
           }
         })
       } else {
@@ -57,9 +60,6 @@ Page({
         })
       }
     }
-
-    console.log(contentList)
-
     this.setData({
       nodes: contentList
     })
@@ -82,7 +82,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.onLoadDetailNews(() => {
+      wx.stopPullDownRefresh()
+    })
   },
 
   /**

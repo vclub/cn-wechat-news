@@ -43,6 +43,12 @@ Page({
       })
     }
   },
+  showDetail:function (event) {
+    var newsId = event.target.dataset.newsid;
+    wx.navigateTo({
+      url: `/pages/detail/detail?newsId=${newsId}`,
+    })
+  },
   //判断当前滚动超过一屏时，设置tab标题滚动条。
   checkCor: function () {
     if (this.data.currentTab > 4) {
