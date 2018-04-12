@@ -1,0 +1,23 @@
+/* pages/detail/detail.wxss */
+rich-text {
+  width: 100%;
+}
+
+.rich-text-wrp {
+  background-color: #fff;
+}
+
+.page-section {
+  width: 100%;
+  margin: 5rpx 5rpx;
+}
+
+.new-title {
+  font-size: 60rpx;
+
+}
+
+.read{
+  font-size: 30rpx;
+
+}
