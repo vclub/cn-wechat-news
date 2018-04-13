@@ -4,10 +4,10 @@
     "pages/detail/detail"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "快读@咨询",
-    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#4342B6",
+    "navigationBarTitleText": "快读@资讯",
+    "navigationBarTextStyle": "white",
     "enablePullDownRefresh":true
   }
 }

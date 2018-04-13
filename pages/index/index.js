@@ -2,28 +2,31 @@
 //获取应用实例
 const app = getApp()
 
-// const newsTypeMap = [
-//   '国内' = 'gn',
-//   '国际' = 'gj',
-//   '财经' = 'cj',
-//   '娱乐' = 'yl',
-//   '军事' = 'js',
-//   '体育' = 'ty',
-//   '其他' = 'other'
-// ]
+const newsTypeLabel = [
+  '国内',
+  '国际',
+  '财经',
+  '娱乐',
+  '军事',
+  '体育',
+  '其他' 
+]
+
+const newsType = [
+  'gn',
+  'gj',
+  'cj',
+  'yl',
+  'js',
+  'ty',
+  'other'
+]
 
 Page({
   data: {
     winHeight: "",//窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
-    expertList: [{ //假数据
-      img: "avatar.png",
-      name: "欢顔",
-      tag: "知名情感博主",
-      answer: 134,
-      listen: 2234
-    }],
     newsList:[]
   },
   // 滚动切换标签样式
@@ -31,6 +34,7 @@ Page({
     this.setData({
       currentTab: e.detail.current
     });
+    this.loadCurrentTabNews()
     this.checkCor();
   },
   // 点击标题切换当前页时改变样式
@@ -41,6 +45,7 @@ Page({
       this.setData({
         currentTab: cur
       })
+      this.loadCurrentTabNews()
     }
   },
   showDetail:function (event) {
@@ -77,24 +82,36 @@ Page({
       }
     });
 
+    this.loadCurrentTabNews()
+  },  
+  loadCurrentTabNews: function(callback){
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
       url: 'https://test-miniprogram.com/api/news/list',
-      data:{
-        type:'gn'
+      data: {
+        type: newsType[this.data.currentTab]
       },
-      success:res=>{
+      success: res => {
         console.log(res.data.result)
         this.setData({
-          newsList:res.data.result
+          newsList: res.data.result
         })
+      },
+      complete:()=>{
+        wx.hideLoading()
+        callback && callback()
       }
     })
-  },  
+  },
   /**
  * 页面相关事件处理函数--监听用户下拉动作
  */
   onPullDownRefresh: function () {
-    console.log("pull down refresh")
+    this.loadCurrentTabNews(()=>{
+      wx.stopPullDownRefresh()
+    })
   },
   footerTap: app.footerTap
 })

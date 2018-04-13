@@ -20,6 +20,9 @@ Page({
     this.onLoadDetailNews()
   },
   onLoadDetailNews(callback) {
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
       url: 'https://test-miniprogram.com/api/news/detail',
       data: {
@@ -27,12 +30,17 @@ Page({
       },
       success: res => {
         console.log(res.data.result)
+
+        let time =  res.data.result.date.substring(11, 16)
+        res.data.result.date = time
+
         this.setData({
           newsInfo: res.data.result
         })
         this.buildContent(res.data.result.content)
       },
       complete: () => {
+        wx.hideLoading()
         callback && callback()
       }
     })
@@ -53,6 +61,9 @@ Page({
       } else {
         contentList.push({
           name: content[i].type,
+          attrs: {
+            style: 'font-size:12pt;opacity: 0.8;'
+          },
           children: [{
             type: 'text',
             text: content[i].text

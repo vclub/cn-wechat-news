@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "1.9.98",
 	"appid": "wx59e9976eeecfc51e",
 	"projectname": "cn-wechat-news",
 	"isGameTourist": false,
@@ -36,7 +36,7 @@
 					"id": 0,
 					"name": "新闻详情",
 					"pathName": "pages/detail/detail",
-					"query": "newsId=1523074607642"
+					"query": "newsId=1523074607672"
 				}
 			]
 		}

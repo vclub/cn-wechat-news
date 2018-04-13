@@ -2,10 +2,12 @@
 
 <view class="page-section">
   <view>
-    <view class='new-title'>{{newsInfo.title}}</view>
-    <view class='sub-title'>{{newsInfo.source}}</view>
-    <view class='sub-title'>{{newsInfo.date}}</view>
-    <view class='sub-title'>阅读 {{newsInfo.readCount}}</view>
+    <view class='news-title'>{{newsInfo.title}}</view>
+    <view class='sub-info'>
+        <view>{{newsInfo.source}}</view>
+        <view>{{newsInfo.date}}</view>
+        <view>阅读 {{newsInfo.readCount}}</view>
+    </view>
   </view>
   <view class="rich-text-wrp">
     <rich-text class='content' nodes="{{nodes}}" bindtap="tap"></rich-text>

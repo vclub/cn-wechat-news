@@ -1,6 +1,7 @@
 /* pages/detail/detail.wxss */
-rich-text {
-  width: 100%;
+
+.news-title {
+  font-size: 18pt;
 }
 
 .rich-text-wrp {
@@ -8,16 +9,16 @@ rich-text {
 }
 
 .page-section {
-  width: 100%;
-  margin: 5rpx 5rpx;
+  margin: 15rpx 15rpx 15rpx 15rpx;
 }
 
-.new-title {
-  font-size: 60rpx;
-
-}
-
-.read{
-  font-size: 30rpx;
-
+.sub-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 11pt;
+  opacity: 0.6;
+  line-height: 30rpx;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
 }
