@@ -29,11 +29,7 @@ Page({
         id: this.data.newsId
       },
       success: res => {
-        console.log(res.data.result)
-
-        let time =  res.data.result.date.substring(11, 16)
-        res.data.result.date = time
-
+        res.data.result.date = res.data.result.date.substring(11, 16)
         this.setData({
           newsInfo: res.data.result
         })

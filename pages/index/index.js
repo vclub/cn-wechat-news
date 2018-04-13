@@ -95,8 +95,14 @@ Page({
       },
       success: res => {
         console.log(res.data.result)
+
+        var newsList = res.data.result.map(function(item){
+          item.date = item.date.substring(11, 16)
+          return item
+        });
+
         this.setData({
-          newsList: res.data.result
+          newsList: newsList
         })
       },
       complete:()=>{

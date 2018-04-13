@@ -84,17 +84,6 @@
   margin-bottom: 6px;
 }
 
-.askBtn {
-  width: 120rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  text-align: center;
-  font-size: 14px;
-  border-radius: 60rpx;
-  border: 1px solid #4675f9;
-  color: #4675f9;
-}
-
 .tab-content {
   margin-top: 80rpx;
 }

@@ -16,8 +16,8 @@
             <view class="expertInfo">
               <view class="name" data-newsId="{{item.id}}" bindtap="showDetail">{{item.title}}</view>
               <view class='extraInfo'>
-                <view class="tag">{{item.source}}</view>
-                <view class="answerHistory">{{item.date}}</view>
+                <view style='margin-right: 10rpx;'>{{item.source}}</view>
+                <view >{{item.date}}</view>
               </view>
             </view>
             <view class="avatar" >
