@@ -1,7 +1,4 @@
 //index.js
-//获取应用实例
-const app = getApp()
-
 const newsTypeLabel = [
   '国内',
   '国际',
@@ -118,6 +115,5 @@ Page({
     this.loadCurrentTabNews(()=>{
       wx.stopPullDownRefresh()
     })
-  },
-  footerTap: app.footerTap
+  }
 })
