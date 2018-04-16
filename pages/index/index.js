@@ -1,22 +1,35 @@
 //index.js
-const newsTypeLabel = [
-  '国内',
-  '国际',
-  '财经',
-  '娱乐',
-  '军事',
-  '体育',
-  '其他' 
-]
+const moment = require('../../utils/moment.js')
 
 const newsType = [
-  'gn',
-  'gj',
-  'cj',
-  'yl',
-  'js',
-  'ty',
-  'other'
+  {
+    'label': '国内',
+    'type': 'gn'
+  },
+  {
+    'label': '国际',
+    'type': 'gj'
+  },
+  {
+    'label': '财经',
+    'type': 'cj'
+  },
+  {
+    'label': '娱乐',
+    'type': 'yl'
+  },
+  {
+    'label': '军事',
+    'type': 'js'
+  },
+  {
+    'label': '体育',
+    'type': 'ty'
+  },
+  {
+    'label': '其他',
+    'type': 'other'
+  }
 ]
 
 Page({
@@ -24,7 +37,8 @@ Page({
     winHeight: "",//窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
-    newsList:[]
+    newsList: [],
+    newsType: newsType
   },
   // 滚动切换标签样式
   switchTab: function (e) {
@@ -45,8 +59,9 @@ Page({
       this.loadCurrentTabNews()
     }
   },
-  showDetail:function (event) {
-    var newsId = event.target.dataset.newsid;
+  showDetail: function (event) {
+    var newsId = event.currentTarget.dataset.newsid;
+    console.log(event)
     wx.navigateTo({
       url: `/pages/detail/detail?newsId=${newsId}`,
     })
@@ -80,21 +95,22 @@ Page({
     });
 
     this.loadCurrentTabNews()
-  },  
-  loadCurrentTabNews: function(callback){
+  },
+  loadCurrentTabNews: function (callback) {
     wx.showLoading({
       title: '加载中...',
     })
     wx.request({
       url: 'https://test-miniprogram.com/api/news/list',
       data: {
-        type: newsType[this.data.currentTab]
+        type: newsType[this.data.currentTab].type
       },
       success: res => {
         console.log(res.data.result)
 
-        var newsList = res.data.result.map(function(item){
-          item.date = item.date.substring(11, 16)
+        var newsList = res.data.result.map(function (item) {
+          // item.date = item.date.substring(11, 16)
+          item.date = moment(item.date).format('HH:mm')
           return item
         });
 
@@ -102,7 +118,7 @@ Page({
           newsList: newsList
         })
       },
-      complete:()=>{
+      complete: () => {
         wx.hideLoading()
         callback && callback()
       }
@@ -112,7 +128,7 @@ Page({
  * 页面相关事件处理函数--监听用户下拉动作
  */
   onPullDownRefresh: function () {
-    this.loadCurrentTabNews(()=>{
+    this.loadCurrentTabNews(() => {
       wx.stopPullDownRefresh()
     })
   }

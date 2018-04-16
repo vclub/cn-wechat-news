@@ -1,27 +1,23 @@
 <view>
   <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-    <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="swichNav">国内</view>
-    <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="swichNav">国际</view>
-    <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="swichNav">财经</view>
-    <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="swichNav">娱乐</view>
-    <view class="tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="swichNav">军事</view>
-    <view class="tab-item {{currentTab==5?'active':''}}" data-current="5" bindtap="swichNav">体育</view>
-    <view class="tab-item {{currentTab==6?'active':''}}" data-current="6" bindtap="swichNav">其他</view>
+    <block wx:for="{{newsType}}" wx:key="unique">
+      <view class="tab-item {{currentTab==index?'active':''}}" data-current="{{index}}" bindtap="swichNav">{{item.label}}</view>
+    </block>
   </scroll-view>
   <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
-    <swiper-item wx:for="{{[0,1,2,3,4,5,6]}}">
+    <swiper-item wx:for="{{newsType}}" wx:key="key">
       <scroll-view scroll-y="true" class="scoll-h">
         <block wx:for="{{newsList}}" wx:key="*this">
-          <view class="item-ans" >
-            <view class="expertInfo">
-              <view class="name" data-newsId="{{item.id}}" bindtap="showDetail">{{item.title}}</view>
-              <view class='extraInfo'>
+          <view class="news-item-row" data-newsId="{{item.id}}" bindtap="showDetail">
+            <view class="news-text">
+              <view class="news-title">{{item.title}}</view>
+              <view class='news-sub'>
                 <view style='margin-right: 10rpx;'>{{item.source}}</view>
-                <view >{{item.date}}</view>
+                <view>{{item.date}}</view>
               </view>
             </view>
-            <view class="avatar" >
-              <image class="img" src="{{item.firstImage}}" data-newsId="{{item.id}}" bindtap="showDetail"></image>
+            <view class="news-img">
+              <image class="img" src="{{item.firstImage===''?'/images/default.png':item.firstImage}}"></image>
             </view>
           </view>
         </block>

@@ -1,11 +1,14 @@
 // pages/detail/detail.js
+const moment = require('../../utils/moment.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
+  
   data: {
-    newsId: 1523074607642,
+    newsId: '',
     nodes: '',
     newsInfo: {}
   },
@@ -14,10 +17,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      newsId: options.newsId
-    })
-    this.onLoadDetailNews()
+    if (options.newsId === '') {
+      wx.navigateBack()
+    } else {
+      this.setData({
+        newsId: options.newsId
+      })
+      this.onLoadDetailNews()
+    }
   },
   onLoadDetailNews(callback) {
     wx.showLoading({
@@ -29,7 +36,8 @@ Page({
         id: this.data.newsId
       },
       success: res => {
-        res.data.result.date = res.data.result.date.substring(11, 16)
+
+        res.data.result.date = moment(res.data.result.date).format('HH:mm')
         this.setData({
           newsInfo: res.data.result
         })

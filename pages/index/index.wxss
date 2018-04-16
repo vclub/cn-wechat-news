@@ -35,7 +35,7 @@
   border-radius: 16rpx;
 }
 
-.item-ans {
+.news-item-row {
   width: 100%;
   display: flex;
   flex-grow: row no-wrap;
@@ -47,38 +47,30 @@
   border-bottom: 1px solid #f2f2f2;
 }
 
-.avatar {
+.news-img {
   position: relative;
   padding-right: 30rpx;
 }
 
-.avatar .img {
+.news-img .img {
   width: 150rpx;
   height: 100rpx;
 }
 
-.avatar .doyen {
-  width: 40rpx;
-  height: 40rpx;
-  position: absolute;
-  bottom: -2px;
-  right: 20rpx;
-}
-
-.expertInfo {
+.news-text {
   font-size: 12px;
   flex-grow: 2;
   color: #b0b0b0;
   line-height: 1.5em;
 }
 
-.extraInfo {
+.news-text .news-sub {
   display: flex;
   flex: row;
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
-.expertInfo .name {
+.news-text .news-title {
   font-size: 16px;
   color: #000;
   margin-bottom: 6px;
