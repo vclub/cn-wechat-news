@@ -1,13 +1,13 @@
 <view>
   <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-    <block wx:for="{{newsType}}" wx:key="unique">
+    <block wx:for="{{newsList}}" wx:key="unique">
       <view class="tab-item {{currentTab==index?'active':''}}" data-current="{{index}}" bindtap="swichNav">{{item.label}}</view>
     </block>
   </scroll-view>
   <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
-    <swiper-item wx:for="{{newsType}}" wx:key="key">
+    <swiper-item wx:for="{{newsList}}">
       <scroll-view scroll-y="true" class="scoll-h">
-        <block wx:for="{{newsList}}" wx:key="*this">
+        <block wx:for="{{newsList[index].news}}" wx:key="key">
           <view class="news-item-row" data-newsId="{{item.id}}" bindtap="showDetail">
             <view class="news-text">
               <view class="news-title">{{item.title}}</view>

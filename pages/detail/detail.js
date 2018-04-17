@@ -1,5 +1,6 @@
 // pages/detail/detail.js
-const moment = require('../../utils/moment.js')
+
+const util = require('../../utils/util.js')
 
 Page({
 
@@ -36,8 +37,7 @@ Page({
         id: this.data.newsId
       },
       success: res => {
-
-        res.data.result.date = moment(res.data.result.date).format('HH:mm')
+        res.data.result.date = util.formatTime(new Date(res.data.result.date))
         this.setData({
           newsInfo: res.data.result
         })

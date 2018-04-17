@@ -1,34 +1,42 @@
 //index.js
-const moment = require('../../utils/moment.js')
+
+const util = require('../../utils/util.js')
 
 const newsType = [
   {
     'label': '国内',
-    'type': 'gn'
+    'type': 'gn',
+    'news': []
   },
   {
     'label': '国际',
-    'type': 'gj'
+    'type': 'gj',
+    'news': []
   },
   {
     'label': '财经',
-    'type': 'cj'
+    'type': 'cj',
+    'news': []
   },
   {
     'label': '娱乐',
-    'type': 'yl'
+    'type': 'yl',
+    'news': []
   },
   {
     'label': '军事',
-    'type': 'js'
+    'type': 'js',
+    'news': []
   },
   {
     'label': '体育',
-    'type': 'ty'
+    'type': 'ty',
+    'news': []
   },
   {
     'label': '其他',
-    'type': 'other'
+    'type': 'other',
+    'news': []
   }
 ]
 
@@ -37,8 +45,8 @@ Page({
     winHeight: "",//窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
-    newsList: [],
-    newsType: newsType
+    newsList: newsType,
+    isRefresh: false
   },
   // 滚动切换标签样式
   switchTab: function (e) {
@@ -97,37 +105,52 @@ Page({
     this.loadCurrentTabNews()
   },
   loadCurrentTabNews: function (callback) {
-    wx.showLoading({
-      title: '加载中...',
-    })
-    wx.request({
-      url: 'https://test-miniprogram.com/api/news/list',
-      data: {
-        type: newsType[this.data.currentTab].type
-      },
-      success: res => {
-        console.log(res.data.result)
 
-        var newsList = res.data.result.map(function (item) {
-          // item.date = item.date.substring(11, 16)
-          item.date = moment(item.date).format('HH:mm')
-          return item
-        });
+    console.log(this.data.newsList[this.data.currentTab].news.length)
+    if (this.data.newsList[this.data.currentTab].news.length === 0 ||
+      this.data.isRefresh === true) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      wx.request({
+        url: 'https://test-miniprogram.com/api/news/list',
+        data: {
+          type: newsType[this.data.currentTab].type
+        },
+        success: res => {
+          var newsResult = res.data.result.map(function (item) {
+            item.date = util.formatTime(new Date(item.date))
+            return item
+          });
 
-        this.setData({
-          newsList: newsList
-        })
-      },
-      complete: () => {
-        wx.hideLoading()
-        callback && callback()
-      }
-    })
+          var temp = this.data.newsList
+
+          temp[this.data.currentTab].news = newsResult
+
+          // console.log(this.data.newsList)
+
+          this.setData({
+            newsList: temp
+          })
+        },
+        complete: () => {
+          this.setData({
+            isRefresh: false
+          })
+          wx.hideLoading()
+          callback && callback()
+        }
+      })
+    }
+
   },
   /**
  * 页面相关事件处理函数--监听用户下拉动作
  */
   onPullDownRefresh: function () {
+    this.setData({
+      isRefresh: true
+    })
     this.loadCurrentTabNews(() => {
       wx.stopPullDownRefresh()
     })
